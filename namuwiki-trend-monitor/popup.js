@@ -231,3 +231,67 @@ saveIntervalButton.addEventListener("click", async () => {
 
 // 3. 팝업을 열면 저장된 설정 표시
 loadIntervalSetting();
+
+
+// Windows 알림 ON/OFF 설정
+const notificationToggle =
+    document.getElementById("notificationsEnabled");
+
+const notificationStatus =
+    document.getElementById("notificationStatus");
+
+// 저장된 알림 설정 불러오기
+async function loadNotificationSetting() {
+    try {
+        const data = await chrome.storage.local.get(
+            "notificationsEnabled"
+        );
+
+        // 설정이 없다면 기본값 ON
+        notificationToggle.checked =
+            data.notificationsEnabled !== false;
+
+    } catch (error) {
+        console.error(
+            "[Namu Monitor] 알림 설정 불러오기 실패:",
+            error
+        );
+    }
+}
+
+// 체크박스 변경 시 바로 저장
+notificationToggle.addEventListener("change", async () => {
+    const enabled = notificationToggle.checked;
+    notificationToggle.disabled = true;
+
+    try {
+        if (enabled) {
+            await chrome.storage.local.set({
+                notificationsEnabled: true
+            });
+        } else {
+            // 알림을 끌 때 미전송 알림도 폐기
+            await chrome.storage.local.set({
+                notificationsEnabled: false,
+                pendingNewEntries: []
+            });
+        }
+
+        notificationStatus.textContent = enabled
+            ? "Windows 알림을 켰습니다."
+            : "Windows 알림을 껐습니다.";
+
+    } catch (error) {
+        notificationToggle.checked = !enabled;
+
+        notificationStatus.textContent =
+            "알림 설정 저장에 실패했습니다.";
+
+        console.error(error);
+
+    } finally {
+        notificationToggle.disabled = false;
+    }
+});
+
+loadNotificationSetting();

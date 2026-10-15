@@ -264,6 +264,18 @@ async function showNewKeywordNotification(newEntries) {
         return;
     }
 
+    // 사용자가 Windows 알림을 껐는지 확인
+    const setting = await chrome.storage.local.get(
+        "notificationsEnabled"
+    );
+
+    if (setting.notificationsEnabled === false) {
+        console.log(
+            "[Namu Monitor] Windows 알림 OFF - 전송 생략"
+        );
+        return;
+    }
+
     // 알림에 표시할 검색어 (최대 3개)
     const messages = newEntries
         .slice(0, 3)
@@ -336,7 +348,8 @@ chrome.runtime.onMessage.addListener((message, sender) => {
                 "seenKeywords",
                 "previousKeywords",
                 "pendingDate",
-                "pendingNewEntries"
+                "pendingNewEntries",
+                "notificationsEnabled"
             ]);
 
             const today = getLocalDateKey();
@@ -381,21 +394,30 @@ chrome.runtime.onMessage.addListener((message, sender) => {
                 ])
             ];
 
-            // 오늘 전송하지 못한 알림 불러오기
+            
+            // 사용자의 알림 설정 확인 (기본값 ON)
+            const notificationsEnabled =
+                saved.notificationsEnabled !== false;
+
+            // 알림이 켜져 있을 때만 이전 대기 목록 불러오기
             const previousPending =
+                notificationsEnabled &&
                 saved.pendingDate === today &&
                 Array.isArray(saved.pendingNewEntries)
                     ? saved.pendingNewEntries
                     : [];
 
-            // 이전 실패 알림 + 이번 신규 검색어 합치기
-            const notificationsToSend = [
-                ...new Map(
-                    [...previousPending, ...newEntries].map(
-                        entry => [entry.keyword, entry]
-                    )
-                ).values()
-            ];
+            // 알림 OFF라면 새 알림과 기존 대기 알림 모두 제외
+            const notificationsToSend = notificationsEnabled
+                ? [
+                    ...new Map(
+                        [...previousPending, ...newEntries].map(
+                            entry => [entry.keyword, entry]
+                        )
+                    ).values()
+                ]
+                : [];
+
             
             // 수집 결과와 알림 대기 목록을 먼저 저장
             await chrome.storage.local.set({
