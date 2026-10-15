@@ -1,0 +1,208 @@
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    width: 350px;
+    margin: 0;
+    background: #ffffff;
+    font-family: Arial, sans-serif;
+    color: #222;
+}
+
+.container {
+    padding: 18px;
+}
+
+/* 상단 제목 */
+header {
+    margin-bottom: 18px;
+}
+
+h1 {
+    margin: 0 0 6px;
+    font-size: 18px;
+    color: #009f91;
+}
+
+header p {
+    margin: 0;
+    color: #777;
+    font-size: 12px;
+}
+
+/* 섹션 제목 */
+h2 {
+    margin: 0 0 12px;
+    font-size: 15px;
+}
+
+.ranking-section {
+    margin-bottom: 22px;
+}
+
+/* 검색어 순위 */
+.ranking-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.ranking-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.rank {
+    width: 20px;
+    flex-shrink: 0;
+    font-size: 13px;
+    font-weight: bold;
+    color: #888;
+}
+
+.keyword {
+    flex: 1;
+    min-width: 0;
+    color: #222;
+    font-size: 13px;
+    text-decoration: none;
+    overflow-wrap: anywhere;
+}
+
+.keyword:hover {
+    color: #009f91;
+    text-decoration: underline;
+}
+
+.new-badge {
+    background: #e2f6ed;
+    color: #16845b;
+    padding: 3px 6px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.empty {
+    list-style: none;
+    color: #999;
+    font-size: 12px;
+}
+
+/* 하단 정보 */
+footer {
+    border-top: 1px solid #eee;
+    padding-top: 12px;
+    color: #888;
+    font-size: 11px;
+}
+
+footer p {
+    margin: 5px 0;
+}
+
+#status {
+    color: #009f91;
+}
+
+
+/* 자동 수집 설정 */
+.settings-section {
+    margin-top: 20px;
+    margin-bottom: 16px;
+    padding-top: 16px;
+    border-top: 1px solid #eee;
+}
+
+.setting-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.setting-row label {
+    font-size: 12px;
+    color: #666;
+    white-space: nowrap;
+}
+
+#intervalSelect {
+    flex: 1;
+    min-width: 0;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background: white;
+    font-size: 12px;
+}
+
+#saveIntervalButton {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    background: #009f91;
+    color: white;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+#saveIntervalButton:hover {
+    background: #008577;
+}
+
+#saveIntervalButton:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+#intervalStatus {
+    margin: 8px 0 0;
+    font-size: 11px;
+    color: #009f91;
+}
+
+#intervalStatus:empty {
+    display: none;
+}
+
+
+
+/* 아카라이브 이유 링크 */
+.ranking-item .reason-link,
+.ranking-item .reason-link:visited {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+    min-width: 42px;
+
+    /* NEW 배지와 간격 */
+    margin-left: 18px;
+
+    padding: 5px 8px;
+
+    background: #f0faf8;
+    border: 1px solid #c6eae4;
+    border-radius: 6px;
+
+    color: #008577;
+    font-size: 11px;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+
+    cursor: pointer;
+}
+
+.ranking-item .reason-link:hover {
+    background: #dff4ee;
+    border-color: #009f91;
+    color: #00776b;
+    text-decoration: none;
+}

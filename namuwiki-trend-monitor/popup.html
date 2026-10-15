@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>NamuWiki Trend Monitor</title>
+
+    <link rel="stylesheet" href="popup.css">
+    <script src="popup.js" defer></script>
+</head>
+<body>
+    <main class="container">
+
+        <header>
+            <h1>NamuWiki Trend Monitor</h1>
+            <p>나무위키 실시간 검색어 모니터</p>
+        </header>
+
+        <!-- 검색어 순위 -->
+        <section class="ranking-section">
+            <h2>최근 수집 TOP 10</h2>
+
+            <ol id="rankingList" class="ranking-list">
+                <li class="empty">데이터 불러오는 중...</li>
+            </ol>
+        </section>
+        
+
+        <!-- 자동 수집 간격 설정 -->
+        <section class="settings-section">
+            <h2>자동 수집 설정</h2>
+
+            <div class="setting-row">
+                <label for="intervalSelect">수집 간격</label>
+
+                <select id="intervalSelect">
+                    <option value="5">5분</option>
+                    <option value="15">15분</option>
+                    <option value="30">30분</option>
+                    <option value="60">60분</option>
+                </select>
+
+                <button id="saveIntervalButton" type="button">
+                    저장
+                </button>
+            </div>
+
+            <p id="intervalStatus" aria-live="polite"></p>
+        </section>
+
+        <!-- 수집 정보 -->
+        <footer>
+            <p id="lastChecked">마지막 수집: -</p>
+            <p id="seenDate">기록 기준일: -</p>
+            <p id="status" aria-live="polite"></p>
+        </footer>
+
+    </main>
+</body>
+</html>

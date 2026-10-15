@@ -1,0 +1,32 @@
+
+{
+  "manifest_version": 3,
+  "name": "NamuWiki Trend Monitor",
+  "version": "1.0.0",
+  "description": "나무위키 실시간 검색어 모니터링",
+  "permissions": [
+    "storage",
+    "alarms",
+    "notifications"
+  ],
+  "host_permissions": [
+    "https://namu.wiki/*"
+  ],
+  "icons": {
+  "128": "icons/icon128.png"
+  },
+  "action": {
+  "default_icon": "icons/icon128.png",
+  "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://namu.wiki/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
